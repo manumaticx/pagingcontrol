@@ -1,0 +1,13 @@
+{
+	"id": "de.manumaticx.pagingcontrol",
+	"name": "pagingcontrol",
+	"description" : "Paging indicator for Ti.UI.ScrollableViews",
+	"author": "Manuel Lehner",
+	"version": "0.1",
+	"copyright":"Copyright (c) 2014",
+	"license":"MIT",
+	"min-alloy-version": "1.3",
+	"min-titanium-version":"3.2.0",
+	"tags":"page indicator, paging control, scrollable view, view pager, dots, lines",
+	"platforms":"android,ios"
+}
