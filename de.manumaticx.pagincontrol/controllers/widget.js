@@ -41,7 +41,6 @@ if (args.__parentSymbol){
 
 if ($.scrollableView){
     initWhenReady();
-    Ti.API.info("init called at creation");
 }
 
 /**
