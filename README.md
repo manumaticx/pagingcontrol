@@ -4,13 +4,14 @@ Alloy Widget for a line page indication on ScrollableViews.
 
 ![](demo.gif)
 
-[![Titanium](http://www-static.appcelerator.com/badges/titanium-git-badge-sq.png)](http://www.appcelerator.com/titanium/) [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/alloy/)
 ## Quick Start
 
-### Installation [![gitTio](http://gitt.io/badge.png)](http://gitt.io/component/de.manumaticx.pagingcontrol)
-Download the latest distribution ZIP-file and consult the [Titanium Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Using_a_Module) on how install it, or simply use the [gitTio CLI](http://gitt.io/cli):
+### Installation
 
-`$ gittio install de.manumaticx.pagingcontrol`
+Via gittio:
+```
+gittio install de.manumaticx.pagingcontrol
+```
 
 ### Usage
 Just put it in the same container as the ScrollableView:
