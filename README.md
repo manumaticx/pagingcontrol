@@ -26,9 +26,13 @@ Just put it in the same container as the ScrollableView:
 	</Window>
 </Alloy>
 ```
-You can also pass a reference to the ScrollableView as `scrollableView` at creation or later with `$.paging.setScrollableView($.scrollableView)`. But as long as the pagingControl widget and the ScrollableView have the same parent view, it should initialize itself.
+You can also pass a reference to the ScrollableView as `scrollableView` at creation or later with `$.paging.setScrollableView($.scrollableView)`. ~~But as long as the pagingControl widget and the ScrollableView have the same parent view, it should initialize itself.~~
+
+**NOTE:** Auto-initialization doesn't work anymore with Alloy 1.4.0 - you have to pass a reference to the scrollableView or call `$.paging.setScrollableView($.scrollableView)`
 
 Use `indicatorColor` to define the color.
+
+Call `$.paging.destroy()` to remove the orientationChangeListener when you're done with the window.
 
 ## License
 

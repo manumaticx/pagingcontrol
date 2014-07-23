@@ -26,11 +26,12 @@ var args = _.defaults(arguments[0] || {}, {
     "zIndex"
 ].forEach(function(prop){ _.has(args, prop) && ($.pagingcontrol[prop] = args[prop]); });
 
+// NOTE: THIS DOES NOT WORK ANYMORE WITH ALLOY 1.4.0
 // try to find scrollable view as child of parent
 // this should work, if pagingcontrol is scrollable view have the same parent
 // otherwise you can pass it with args or setScrollableView
 if (args.__parentSymbol){
-    args.__parentSymbol.children.length > 0 && 
+    args.__parentSymbol.children.length > 0 &&
     ($.scrollableView = _.find(args.__parentSymbol.children, function(child){
         return child.apiName === "Ti.UI.ScrollableView";
     }));
@@ -40,19 +41,19 @@ if (args.__parentSymbol){
 (_.has(args, "scrollableView")) && ($.scrollableView = args.scrollableView);
 
 if ($.scrollableView){
-    initWhenReady();
+    postLayout(init);
 }
 
 /**
- * calls init if we have all infos
+ * calls back after postlayout
  */
-function initWhenReady(){
-    // wait for postlayout event to get the pagingcontrol size 
+function postLayout(callback){
+    // wait for postlayout event to get the pagingcontrol size
     $.pagingcontrol.addEventListener('postlayout', function onPostLayout(){
-        
-        // if we have a scrollableView reference, initialize the paging control
-        init();
-        
+
+        // callback
+        callback();
+
         // remove eventlistener
         $.pagingcontrol.removeEventListener('postlayout', onPostLayout);
     });
@@ -62,23 +63,23 @@ function initWhenReady(){
  * initialization method
  */
 function init(){
-    
-    // save the indicator width as it's used in scroll event
-    $.iWidth = Math.floor($.pagingcontrol.size.width / $.scrollableView.views.length);
-    
+
     // create the indicator view
     $.indicator = Ti.UI.createView({
         backgroundColor: args.indicatorColor,
         height: $.pagingcontrol.getHeight(),
-        width: $.iWidth,
+        width: Ti.UI.SIZE,
         left: 0
     });
-    
+
+    onOrientationChange();
+
     // add the indicator
     $.pagingcontrol.add($.indicator);
-    
+
     // add scroll listener to scrollable view
     $.scrollableView.addEventListener('scroll', onScroll);
+    Ti.Gesture.addEventListener('orientationchange', onOrientationChange);
 }
 
 /**
@@ -86,7 +87,18 @@ function init(){
  */
 function onScroll(e){
     // here is where the magic happens, as simple as that
-    $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);    
+    $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
+}
+
+/**
+ * Callback for orientationchange event
+ */
+function onOrientationChange(e){
+    postLayout(function(){
+        $.iWidth = Math.floor($.pagingcontrol.size.width / $.scrollableView.views.length);
+        $.indicator.setWidth($.iWidth);
+        $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
+    });
 }
 
 /**
@@ -95,5 +107,12 @@ function onScroll(e){
  */
 exports.setScrollableView = function(_sv){
     $.scrollableView = _sv;
-    initWhenReady();
+    postLayout(init);
+};
+
+/**
+ * removes orientationchange Listener
+ */
+exports.destroy = function(){
+    Ti.Gesture.removeEventListener('orientationchange', onOrientationChange);
 };
