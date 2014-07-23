@@ -1,9 +1,10 @@
-# PagingControl [![Titanium](http://www-static.appcelerator.com/badges/titanium-git-badge-sq.png)](http://www.appcelerator.com/titanium/) [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/alloy/)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.2.0-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
 Alloy Widget for a line page indication on ScrollableViews.
 
 ![](demo.gif)
 
+[![Titanium](http://www-static.appcelerator.com/badges/titanium-git-badge-sq.png)](http://www.appcelerator.com/titanium/) [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/alloy/)
 ## Quick Start
 
 ### Installation [![gitTio](http://gitt.io/badge.png)](http://gitt.io/component/de.manumaticx.pagingcontrol)
