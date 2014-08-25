@@ -46,17 +46,23 @@ if ($.scrollableView){
 
 /**
  * calls back after postlayout
+ * @param {Function} callback
+ * @param {Boolean} orientation change  wether called from oc callback
  */
-function postLayout(callback){
-    // wait for postlayout event to get the pagingcontrol size
-    $.pagingcontrol.addEventListener('postlayout', function onPostLayout(){
-
-        // callback
+function postLayout(callback, oc){
+    
+    if (!oc && $.pagingcontrol.size.width){
         callback();
-
-        // remove eventlistener
-        $.pagingcontrol.removeEventListener('postlayout', onPostLayout);
-    });
+    }else{
+        // wait for postlayout event to get the pagingcontrol size
+        $.pagingcontrol.addEventListener('postlayout', function onPostLayout(){
+            // callback
+            callback();
+    
+            // remove eventlistener
+            $.pagingcontrol.removeEventListener('postlayout', onPostLayout);
+        });        
+    }
 }
 
 /**
@@ -98,7 +104,7 @@ function onOrientationChange(e){
         $.iWidth = Math.floor($.pagingcontrol.size.width / $.scrollableView.views.length);
         $.indicator.setWidth($.iWidth);
         $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
-    });
+    }, true);
 }
 
 /**
