@@ -3,7 +3,7 @@
 	"name": "pagingcontrol",
 	"description" : "Paging indicator for Ti.UI.ScrollableViews",
 	"author": "Manuel Lehner",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"copyright":"Copyright (c) 2014",
 	"license":"MIT",
 	"min-alloy-version": "1.3",
