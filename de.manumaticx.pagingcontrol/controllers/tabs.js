@@ -27,7 +27,7 @@ function init(args){
     height: Ti.UI.FILL
   });
 
-  args.titles.forEach(function(title){
+  for (i = 0; i < args.titles.length; i++){
     var t = Ti.UI.createView({
       width: $.tabWidth,
       height: Ti.UI.FILL
@@ -35,27 +35,30 @@ function init(args){
 
     t.add(Ti.UI.createLabel({
       color: "#000",
-      text: title
+      text: args.titles[i]
     }));
+
+    (function(index){
+      t.addEventListener('click', function(){
+        $.trigger('select', { tab: index });
+      });
+    })(i);
 
     $.tabs.add(t);
 
-    // add divider
-    $.tabs.add(Ti.UI.createView({
-      backgroundColor: args.tabs.dividerColor,
-      height: 32,
-      width: 1
-    }));
-  });
+    if (i < args.titles.length - 1){
+      // add divider
+      $.tabs.add(Ti.UI.createView({
+        backgroundColor: args.tabs.dividerColor,
+        height: 32,
+        width: 1
+      }));
+    }
+  }
 }
 
 function getWidth(){
   return $.tabWidth * opts.titles.length + opts.titles.length;
 };
 
-function refresh(){
-
-};
-
-exports.refresh = refresh;
 exports.getWidth = getWidth;

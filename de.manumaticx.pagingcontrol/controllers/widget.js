@@ -5,6 +5,7 @@ _.defaults(args, {
     indicatorColor: "#000",
     indicatorHeight: 5,
     tabs: false,
+    scrollOffset: 40,
     height: args.tabs ? 48 : 5,
     width: Ti.UI.FILL
 });
@@ -101,6 +102,12 @@ function init(){
         bottom: 0,
         backgroundColor: '#ededed'
       }));
+
+      // add tab select listener
+      $.tabsCtrl.on('select', function(e){
+        $.scrollableView.currentPage = e.tab;
+        $.indicator.setLeft(e.tab * $.iWidth);
+      });
     }
 
     // create the indicator view
@@ -127,8 +134,33 @@ function init(){
  * Callback for scroll event
  */
 function onScroll(e){
-    // here is where the magic happens, as simple as that
+    // update the indicator position
     $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
+
+    args.tabs && updateOffset(e.currentPage);
+}
+
+/**
+ * sets the tab bar offset
+ * @param {Number} index
+ */
+function updateOffset(index){
+  var width = $.pagingcontrol.size.width,
+  tabsWidth = $.tabsCtrl.getWidth(),
+  maxOffset = tabsWidth - width,
+  tabSpace = tabsWidth * index / $.scrollableView.views.length,
+  measurement = require('alloy/measurement');
+
+  if (width < tabsWidth){
+
+    var offset = tabSpace - args.scrollOffset;
+
+    $.pagingcontrol.contentOffset = {
+      x: measurement.dpToPX(offset < maxOffset ? offset : maxOffset),
+      y: 0
+    };
+  }
+
 }
 
 /**
@@ -140,8 +172,6 @@ function onOrientationChange(e){
         $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
         $.indicator.setWidth($.iWidth);
         $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
-
-        $.tabsCtrl.refresh();
     }, true);
 }
 
@@ -159,4 +189,5 @@ exports.setScrollableView = function(_sv){
  */
 exports.destroy = function(){
     Ti.Gesture.removeEventListener('orientationchange', onOrientationChange);
+    args.tabs && $.tabsCtrl.off();
 };
