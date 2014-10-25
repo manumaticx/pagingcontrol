@@ -1,9 +1,21 @@
-var args = _.defaults(arguments[0] || {}, {
+var args = arguments[0] || {};
+
+// fill undefined args with defaults
+_.defaults(args, {
     indicatorColor: "#000",
-    height: 5,
-    width: Ti.UI.FILL,
-    bottom: 0
+    indicatorHeight: 5,
+    tabs: false,
+    height: args.tabs ? 48 : 5,
+    width: Ti.UI.FILL
 });
+
+// additional adjustments for tabs
+if (args.tabs) {
+    args.tabs = {
+      dividerColor: "#ccc",
+      width: args.tabWidth
+    };
+}
 
 // apply properties of Ti.UI.View that can be applied to paging control view
 [
@@ -50,18 +62,19 @@ if ($.scrollableView){
  * @param {Boolean} orientation change  wether called from oc callback
  */
 function postLayout(callback, oc){
-    
+
     if (!oc && $.pagingcontrol.size.width){
         callback();
     }else{
         // wait for postlayout event to get the pagingcontrol size
         $.pagingcontrol.addEventListener('postlayout', function onPostLayout(){
+
             // callback
             callback();
-    
+
             // remove eventlistener
             $.pagingcontrol.removeEventListener('postlayout', onPostLayout);
-        });        
+        });
     }
 }
 
@@ -70,12 +83,34 @@ function postLayout(callback, oc){
  */
 function init(){
 
+    if (args.tabs) {
+
+      // create tabs
+      $.tabsCtrl = Widget.createController('tabs', {
+        tabs: args.tabs,
+        titles: _.map($.scrollableView.getViews(), function(v){ return v.title; })
+      });
+
+      // add tabs
+      $.pagingcontrol.add($.tabsCtrl.getView());
+
+      // add bottom border
+      $.pagingcontrol.add(Ti.UI.createView({
+        width: Ti.UI.FILL,
+        height: 2,
+        bottom: 0,
+        backgroundColor: '#ededed'
+      }));
+    }
+
     // create the indicator view
     $.indicator = Ti.UI.createView({
         backgroundColor: args.indicatorColor,
-        height: $.pagingcontrol.getHeight(),
+        height: args.indicatorHeight,
         width: Ti.UI.SIZE,
-        left: 0
+        bottom: 0,
+        left: 0,
+        zIndex: 2
     });
 
     onOrientationChange();
@@ -101,9 +136,12 @@ function onScroll(e){
  */
 function onOrientationChange(e){
     postLayout(function(){
-        $.iWidth = Math.floor($.pagingcontrol.size.width / $.scrollableView.views.length);
+        var totalWidth = args.tabs ? $.tabsCtrl.getWidth() : $.pagingcontrol.size.width;
+        $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
         $.indicator.setWidth($.iWidth);
         $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
+
+        $.tabsCtrl.refresh();
     }, true);
 }
 
