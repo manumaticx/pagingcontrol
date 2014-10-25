@@ -1,6 +1,6 @@
-# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.2.1-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.3.0-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
-Alloy Widget for a line page indication on ScrollableViews.
+Alloy Widget for a page indication on ScrollableViews.
 
 ![](demo.gif)
 
@@ -14,27 +14,57 @@ gittio install de.manumaticx.pagingcontrol
 ```
 
 ### Usage
-Just put it in the same container as the ScrollableView:
+
+Here's the complete example frome the above gif:
+
+`index.xml`
 ```xml
 <Alloy>
-	<Window class="container" >
-		<ScrollableView id="scrollableView">
-		    <ImageView image="/images/image01.jpg" />
-		    <ImageView image="/images/image02.jpg" />
-		    <ImageView image="/images/image03.jpg" />
-		    <ImageView image="/images/image04.jpg" />
-		</ScrollableView>
-		<Widget id="paging" src="de.manumaticx.pagingcontrol" />
+  <Window class="container" >
+    <Widget id="paging" src="de.manumaticx.pagingcontrol" />
+    <ScrollableView id="scrollableView">
+      <View title="Yellow" backgroundColor="yellow" />
+      <View title="Orange" backgroundColor="orange" />
+      <View title="Red" backgroundColor="red" />
+      <View title="Purple" backgroundColor="purple" />
+      <View title="Blue" backgroundColor="blue" />
+    </ScrollableView>
 	</Window>
 </Alloy>
 ```
-You can also pass a reference to the ScrollableView as `scrollableView` at creation or later with `$.paging.setScrollableView($.scrollableView)`. ~~But as long as the pagingControl widget and the ScrollableView have the same parent view, it should initialize itself.~~
+`index.tss`
+```javascript
+".container" : {
+	backgroundColor: "#fff",
+	layout: "vertical"
+},
+"#paging" : {
+	top: 0,
+	indicatorColor: "#09c",
+	tabs: true
+}
+```
+`index.js`
+```javascript
+$.paging.setScrollableView($.scrollableView);
+$.index.open();
+```
 
-**NOTE:** Auto-initialization doesn't work anymore with Alloy 1.4.0 - you have to pass a reference to the scrollableView or call `$.paging.setScrollableView($.scrollableView)`
+## API
 
-Use `indicatorColor` to define the color.
+#### Properties
 
-Call `$.paging.destroy()` to remove the orientationChangeListener when you're done with the window.
+* `scrollableView` - reference the scrollableView
+* `indicatorColor` - Color of the indicator
+* `indicatorHeight` - Thickness the indicator
+* `tabs` (Boolean) - wether to use tabs or only the indicator
+* `tabWidth` - if not passed a default tabWidth of a quarter of the total with is used
+* `dividerColor` - Color of the divider between the tabs
+
+#### Methods
+
+* `setScrollableView( )` - lets you set the scrollableView after creation
+* `destroy( )` - call this to remove EventListeners
 
 ## License
 
