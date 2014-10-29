@@ -15,7 +15,7 @@ gittio install de.manumaticx.pagingcontrol
 
 ### Usage
 
-Here's the complete example frome the above gif:
+Here's the complete example from the above gif:
 
 `index.xml`
 ```xml
