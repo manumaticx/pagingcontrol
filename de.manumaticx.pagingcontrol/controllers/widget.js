@@ -137,7 +137,7 @@ function onScroll(e){
     // update the indicator position
     $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
 
-    args.tabs && updateOffset(e.currentPage);
+    args.tabs && updateOffset(e.currentPageAsFloat);
 }
 
 /**
