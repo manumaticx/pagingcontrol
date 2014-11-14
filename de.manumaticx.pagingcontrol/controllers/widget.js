@@ -150,15 +150,17 @@ function updateOffset(index){
   maxOffset = tabsWidth - width,
   tabSpace = tabsWidth * index / $.scrollableView.views.length,
   measurement = require('alloy/measurement');
-
+  
   if (width < tabsWidth){
 
-    var offset = tabSpace - args.scrollOffset;
+    var offset = tabSpace - args.scrollOffset,    
+    offsetDp = offset < maxOffset ? offset : maxOffset,
+    newOffset = OS_IOS ? (offsetDp < 0 ? 0 : offsetDp) : measurement.dpToPX(offsetDp);
 
-    $.pagingcontrol.contentOffset = {
-      x: measurement.dpToPX(offset < maxOffset ? offset : maxOffset),
-      y: 0
-    };
+    $.pagingcontrol.setContentOffset(
+      { x: newOffset, y: 0},
+      { animated: false }
+    );
   }
 
 }
