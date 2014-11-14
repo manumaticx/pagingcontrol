@@ -120,7 +120,7 @@ function init(){
         zIndex: 2
     });
 
-    onOrientationChange();
+    adjustePositions();
 
     // add the indicator
     $.pagingcontrol.add($.indicator);
@@ -167,12 +167,17 @@ function updateOffset(index){
  * Callback for orientationchange event
  */
 function onOrientationChange(e){
-    postLayout(function(){
-        var totalWidth = args.tabs ? $.tabsCtrl.getWidth() : $.pagingcontrol.size.width;
-        $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
-        $.indicator.setWidth($.iWidth);
-        $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
-    }, true);
+    postLayout(adjustePositions, true);
+}
+
+/**
+ * Adjust initial layout positions
+ */
+function adjustePositions() {
+  var totalWidth = args.tabs ? $.tabsCtrl.getWidth() : $.pagingcontrol.size.width;
+  $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
+  $.indicator.setWidth($.iWidth);
+  $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
 }
 
 /**
