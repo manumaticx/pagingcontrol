@@ -120,7 +120,7 @@ function init(){
         zIndex: 2
     });
 
-    onOrientationChange();
+    adjustePositions();
 
     // add the indicator
     $.pagingcontrol.add($.indicator);
@@ -150,15 +150,17 @@ function updateOffset(index){
   maxOffset = tabsWidth - width,
   tabSpace = tabsWidth * index / $.scrollableView.views.length,
   measurement = require('alloy/measurement');
-
+  
   if (width < tabsWidth){
 
-    var offset = tabSpace - args.scrollOffset;
+    var offset = tabSpace - args.scrollOffset,    
+    offsetDp = offset < maxOffset ? offset : maxOffset,
+    newOffset = OS_IOS ? (offsetDp < 0 ? 0 : offsetDp) : measurement.dpToPX(offsetDp);
 
-    $.pagingcontrol.contentOffset = {
-      x: measurement.dpToPX(offset < maxOffset ? offset : maxOffset),
-      y: 0
-    };
+    $.pagingcontrol.setContentOffset(
+      { x: newOffset, y: 0},
+      { animated: false }
+    );
   }
 
 }
@@ -167,12 +169,17 @@ function updateOffset(index){
  * Callback for orientationchange event
  */
 function onOrientationChange(e){
-    postLayout(function(){
-        var totalWidth = args.tabs ? $.tabsCtrl.getWidth() : $.pagingcontrol.size.width;
-        $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
-        $.indicator.setWidth($.iWidth);
-        $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
-    }, true);
+    postLayout(adjustePositions, true);
+}
+
+/**
+ * Adjust initial layout positions
+ */
+function adjustePositions() {
+  var totalWidth = args.tabs ? $.tabsCtrl.getWidth() : $.pagingcontrol.size.width;
+  $.iWidth = Math.floor(totalWidth / $.scrollableView.views.length);
+  $.indicator.setWidth($.iWidth);
+  $.indicator.setLeft($.scrollableView.getCurrentPage() * $.iWidth);
 }
 
 /**
