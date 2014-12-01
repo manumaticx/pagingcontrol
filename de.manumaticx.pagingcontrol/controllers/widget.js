@@ -105,6 +105,7 @@ function init(){
 
       // add tab select listener
       $.tabsCtrl.on('select', function(e){
+        $.trigger('select', { tab: e.tab });
         $.scrollableView.currentPage = e.tab;
         $.indicator.setLeft(e.tab * $.iWidth);
       });
