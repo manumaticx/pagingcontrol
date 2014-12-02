@@ -21,7 +21,7 @@ Here's the complete example from the above gif:
 ```xml
 <Alloy>
   <Window class="container" >
-    <Widget id="paging" src="de.manumaticx.pagingcontrol" />
+    <Widget id="paging" src="de.manumaticx.pagingcontrol" onSelect="tabHandler" />
     <ScrollableView id="scrollableView">
       <View title="Yellow" backgroundColor="yellow" />
       <View title="Orange" backgroundColor="orange" />
@@ -46,6 +46,9 @@ Here's the complete example from the above gif:
 ```
 `index.js`
 ```javascript
+function tabHandler(e) {
+  console.log('selected tab ', e.tab);
+}
 $.paging.setScrollableView($.scrollableView);
 $.index.open();
 ```
@@ -65,6 +68,10 @@ $.index.open();
 
 * `setScrollableView( )` - lets you set the scrollableView after creation
 * `destroy( )` - call this to remove EventListeners
+
+#### Events
+
+* `select` - lets you know when a tab was pressed and which one was
 
 ## License
 

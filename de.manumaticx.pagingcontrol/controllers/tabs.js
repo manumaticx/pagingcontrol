@@ -40,7 +40,8 @@ function init(args){
 
     (function(index){
       t.addEventListener('click', function(){
-        $.trigger('select', { tab: index });
+        var view = this;
+        $.trigger('select', { tab: index, view: view });
       });
     })(i);
 
