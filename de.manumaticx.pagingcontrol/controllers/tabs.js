@@ -20,6 +20,14 @@ function init(args){
   _.defaults(opts, args);
 
   $.tabWidth = args.tabs.width || getTabWidth();
+  
+  if($.tabWidth.indexOf('%')) {
+    var newWidth = parseInt($.tabWidth.slice(0, $.tabWidth.indexOf('%')))/100;
+
+    OS_ANDROID && (newWidth /= Ti.Platform.displayCaps.logicalDensityFactor);
+
+    $.tabWidth = newWidth * Ti.Platform.displayCaps.platformWidth;
+  }
 
   $.tabs.applyProperties({
     left: 0,
