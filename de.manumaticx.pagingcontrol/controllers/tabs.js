@@ -21,7 +21,7 @@ function init(args){
 
   $.tabWidth = args.tabs.width || getTabWidth();
   
-  if($.tabWidth.indexOf('%')) {
+  if(_.isString($.tabWidth) && $.tabWidth.indexOf('%')) {
     var newWidth = parseInt($.tabWidth.slice(0, $.tabWidth.indexOf('%')))/100;
 
     OS_ANDROID && (newWidth /= Ti.Platform.displayCaps.logicalDensityFactor);
