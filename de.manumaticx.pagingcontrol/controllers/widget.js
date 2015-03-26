@@ -213,7 +213,7 @@ exports.setScrollableView = function(_sv){
 /**
  * removes orientationchange Listener
  */
-exports.destroy = function(){
+exports.cleanup = function(){
     Ti.Gesture.removeEventListener('orientationchange', onOrientationChange);
     args.tabs && $.tabsCtrl && $.tabsCtrl.off();
 };

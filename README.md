@@ -1,4 +1,4 @@
-# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.1-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.2-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
 Alloy Widget for a page indication on ScrollableViews.
 
@@ -68,7 +68,7 @@ $.index.open();
 #### Methods
 
 * `setScrollableView( )` - lets you set the scrollableView after creation
-* `destroy( )` - call this to remove EventListeners
+* `cleanup( )` - call this to remove EventListeners
 
 #### Events
 
