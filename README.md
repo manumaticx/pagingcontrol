@@ -63,6 +63,7 @@ $.index.open();
 * `tabs` (Boolean) - wether to use tabs or only the indicator
 * `tabWidth` - if not passed a default tabWidth of a quarter of the total with is used
 * `dividerColor` - Color of the divider between the tabs
+* `findScrollableView` - whether should widget is find scrollableView
 
 #### Methods
 
