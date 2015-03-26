@@ -7,7 +7,17 @@ _.defaults(args, {
     tabs: false,
     scrollOffset: 40,
     height: args.tabs ? 48 : 5,
-    width: Ti.UI.FILL
+    width: Ti.UI.FILL,
+    findScrollableView: true
+});
+
+// xml boolean args is string ("false" == true) 
+_.each(['tabs', 'findScrollableView'], function(key){
+    try {
+        args[key] = JSON.parse(args[key]);
+    } catch (e) {
+        Ti.API.error("Unable to set argument '" + key + "'. It must be boolean.");
+    }
 });
 
 // additional adjustments for tabs
@@ -43,7 +53,7 @@ if (args.tabs) {
 // try to find scrollable view as child of parent
 // this should work, if pagingcontrol is scrollable view have the same parent
 // otherwise you can pass it with args or setScrollableView
-if (args.__parentSymbol){
+if (args.__parentSymbol && args.findScrollableView){
     args.__parentSymbol.children.length > 0 &&
     ($.scrollableView = _.find(args.__parentSymbol.children, function(child){
         return child.apiName === "Ti.UI.ScrollableView";
@@ -68,13 +78,13 @@ function postLayout(callback, oc){
         callback();
     }else{
         // wait for postlayout event to get the pagingcontrol size
-        $.pagingcontrol.addEventListener('postlayout', function onPostLayout(){
+        $.pagingcontrol.addEventListener('postlayout', function onPostLayout(evt){
 
             // callback
             callback();
 
             // remove eventlistener
-            $.pagingcontrol.removeEventListener('postlayout', onPostLayout);
+            evt.source.removeEventListener('postlayout', onPostLayout);
         });
     }
 }
@@ -167,7 +177,6 @@ function updateOffset(index){
       { animated: false }
     );
   }
-
 }
 
 /**
@@ -192,6 +201,10 @@ function adjustePositions() {
  * @param {Ti.UI.Scrollableview} scrollable view
  */
 exports.setScrollableView = function(_sv){
+    if($.scrollableView) {
+        Ti.API.error("Already initialized");
+        return;
+    }
     $.scrollableView = _sv;
     postLayout(init);
 };
@@ -201,5 +214,5 @@ exports.setScrollableView = function(_sv){
  */
 exports.destroy = function(){
     Ti.Gesture.removeEventListener('orientationchange', onOrientationChange);
-    args.tabs && $.tabsCtrl.off();
+    args.tabs && $.tabsCtrl && $.tabsCtrl.off();
 };
