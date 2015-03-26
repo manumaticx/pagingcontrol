@@ -1,5 +1,15 @@
 var args = arguments[0] || {};
 
+// xml boolean args is string ("false" == true) 
+_.each(['tabs', 'findScrollableView'], function(key){
+    try {
+        args[key] = JSON.parse(args[key]);        
+    } catch (e) {
+        delete args[key];
+        Ti.API.error("Unable to set argument '" + key + "'. It must be boolean.");       
+    }   
+});
+
 // fill undefined args with defaults
 _.defaults(args, {
     indicatorColor: "#000",
@@ -9,15 +19,6 @@ _.defaults(args, {
     height: args.tabs ? 48 : 5,
     width: Ti.UI.FILL,
     findScrollableView: true
-});
-
-// xml boolean args is string ("false" == true) 
-_.each(['tabs', 'findScrollableView'], function(key){
-    try {
-        args[key] = JSON.parse(args[key]);
-    } catch (e) {
-        Ti.API.error("Unable to set argument '" + key + "'. It must be boolean.");
-    }
 });
 
 // additional adjustments for tabs
