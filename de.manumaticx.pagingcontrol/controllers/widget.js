@@ -13,7 +13,11 @@ _.defaults(args, {
 
 // xml boolean args is string ("false" == true) 
 _.each(['tabs', 'findScrollableView'], function(key){
-    args[key] = JSON.parse(args[key]);    
+    try {
+        args[key] = JSON.parse(args[key]);
+    } catch (e) {
+        Ti.API.error("Unable to set argument '" + key + "'. It must be boolean.");
+    }
 });
 
 // additional adjustments for tabs
@@ -169,7 +173,6 @@ function updateOffset(index){
       { animated: false }
     );
   }
-
 }
 
 /**
@@ -195,7 +198,8 @@ function adjustePositions() {
  */
 exports.setScrollableView = function(_sv){
     if($.scrollableView) {
-        throw "Already initialized";
+        Ti.API.error("Already initialized");
+        return;
     }
     $.scrollableView = _sv;
     postLayout(init);
