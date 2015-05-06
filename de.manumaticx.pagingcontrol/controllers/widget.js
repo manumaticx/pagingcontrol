@@ -146,6 +146,8 @@ function init(){
  * Callback for scroll event
  */
 function onScroll(e){
+    if(e.source !== $.scrollableView)
+        return;
     // update the indicator position
     $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
 
