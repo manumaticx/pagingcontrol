@@ -146,14 +146,15 @@ function init(){
  * Callback for scroll event
  */
 function onScroll(e){
-    
+
     // restrict this to $.scrollableView to support nesting scrollableViews
-    if (e.source.id === $.scrollableView.id){
-        // update the indicator position
-        $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
-        
-        args.tabs && updateOffset(e.currentPageAsFloat);
-    }
+	if(e.source !== $.scrollableView)
+        return;
+
+    // update the indicator position
+    $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
+
+    args.tabs && updateOffset(e.currentPageAsFloat);
 }
 
 /**
