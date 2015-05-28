@@ -167,6 +167,11 @@ function onScroll(e){
  * @param {Number} index
  */
 function updateOffset(index){
+  
+  if (args.tabWidth === 'auto'){
+    return;
+  }
+  
   var width = $.pagingcontrol.size.width,
   tabsWidth = $.tabsCtrl.getWidth(),
   maxOffset = tabsWidth - width,

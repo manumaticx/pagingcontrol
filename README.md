@@ -1,4 +1,4 @@
-# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.2-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.3-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
 Alloy Widget for a page indication on ScrollableViews.
 
@@ -61,7 +61,9 @@ $.index.open();
 * `indicatorColor` - Color of the indicator
 * `indicatorHeight` - Thickness the indicator
 * `tabs` (Boolean) - wether to use tabs or only the indicator
-* `tabWidth` - if not passed a default tabWidth of a quarter of the total with is used
+* `tabWidth` - width of a tab
+  * if not passed, a default tabWidth of a quarter of the total with is used
+  * if `auto` is used, tabs will fit the width
 * `dividerColor` - Color of the divider between the tabs
 * `findScrollableView` - whether should widget is find scrollableView
 
