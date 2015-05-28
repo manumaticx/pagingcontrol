@@ -23,14 +23,20 @@ _.defaults(args, {
     scrollOffset: 40,
     height: args.tabs ? 48 : 5,
     width: Ti.UI.FILL,
-    findScrollableView: true
+    findScrollableView: true,
+    font : {
+      fontSize : 13,
+      fontWeight : 'bold'
+    }
 });
 
 // additional adjustments for tabs
 if (args.tabs) {
     args.tabs = {
       dividerColor: "#ccc",
-      width: args.tabWidth
+      width: args.tabWidth,
+      backgroundColor : args.backgroundColor,
+      font : args.font
     };
 }
 

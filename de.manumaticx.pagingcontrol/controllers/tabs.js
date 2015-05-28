@@ -57,7 +57,8 @@ function init(args){
 
     t.add(Ti.UI.createLabel({
       color: "#000",
-      text: args.titles[i]
+      text: args.titles[i].toUpperCase(),
+      font : args.tabs.font
     }));
 
     (function(index){
