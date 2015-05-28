@@ -41,7 +41,12 @@ Here's the complete example from the above gif:
 "#paging" : {
 	top: 0,
 	indicatorColor: "#09c",
-	tabs: true
+	tabs: true,
+  backgroundColor : "#cacaca",
+  font : {
+    fontSize : 20,
+    fontWeight : 'bold'
+  }
 }
 ```
 `index.js`
@@ -66,6 +71,8 @@ $.index.open();
   * if `auto` is used, tabs will fit the width
 * `dividerColor` - Color of the divider between the tabs
 * `findScrollableView` - whether should widget is find scrollableView
+* `backgroundColor` - sets the tab's background color
+* `font` - font object for tab labels
 
 #### Methods
 
