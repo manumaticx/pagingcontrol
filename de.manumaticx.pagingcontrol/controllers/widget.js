@@ -2,6 +2,11 @@ var args = arguments[0] || {};
 
 // xml boolean args is string ("false" == true) 
 _.each(['tabs', 'findScrollableView'], function(key){
+    
+    if (!_.has(args, key)){
+        return;
+    }
+    
     try {
         args[key] = JSON.parse(args[key]);        
     } catch (e) {
