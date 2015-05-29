@@ -1,3 +1,4 @@
+var tabs = [];
 var opts = {};
 
 init(arguments[0] || {});
@@ -17,7 +18,7 @@ function getTabWidth(num){
     denominator = num || 4;
   }
   
-  width = Math.floor(displayWidth / denominator);
+  width = Math.floor(displayWidth / denominator) - 1;
   
   return width;
 }
@@ -28,10 +29,14 @@ function init(args){
   
   // 'auto' makes the tabs fill the available width
   if (args.tabs.width === 'auto'){
-    args.tabs.width = getTabWidth(args.titles.length);
+    opts.fitWidth = true;
   }
-
-  $.tabWidth = args.tabs.width || getTabWidth();
+  
+  if (opts.fitWidth){
+    $.tabWidth = getTabWidth(args.titles.length);
+  }else{
+    $.tabWidth = args.tabs.width || getTabWidth();
+  }
   
   if(_.isString($.tabWidth) && $.tabWidth.indexOf('%')>0) {
     var newWidth = parseInt($.tabWidth.slice(0, $.tabWidth.indexOf('%')))/100;
@@ -40,8 +45,6 @@ function init(args){
 
     $.tabWidth = newWidth * Ti.Platform.displayCaps.platformWidth;
   }
-  
-  $.tabWidth = args.tabs.width || getTabWidth();
 
   $.tabs.applyProperties({
     left: 0,
@@ -50,25 +53,24 @@ function init(args){
   });
 
   for (i = 0; i < args.titles.length; i++){
-    var t = Ti.UI.createView({
+    tabs[i] = Ti.UI.createView({
       width: $.tabWidth,
       height: Ti.UI.FILL
     });
 
-    t.add(Ti.UI.createLabel({
+    tabs[i].add(Ti.UI.createLabel({
       color: "#000",
-      text: args.titles[i].toUpperCase(),
-      font : args.tabs.font
+      text: args.titles[i]
     }));
 
     (function(index){
-      t.addEventListener('click', function(){
+      tabs[i].addEventListener('click', function(){
         var view = this;
         $.trigger('select', { tab: index, view: view });
       });
     })(i);
 
-    $.tabs.add(t);
+    $.tabs.add(tabs[i]);
 
     if (i < args.titles.length - 1){
       // add divider
@@ -81,8 +83,20 @@ function init(args){
   }
 }
 
+function updateWidth(){
+  if (opts.fitWidth){
+    
+    $.tabWidth = getTabWidth(opts.titles.length);
+    
+    tabs.forEach(function(tab){
+      tab.setWidth($.tabWidth);
+    });
+  }
+}
+
 function getWidth(){
   return $.tabWidth * opts.titles.length + opts.titles.length;
 };
 
 exports.getWidth = getWidth;
+exports.updateWidth = updateWidth;

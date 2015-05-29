@@ -201,7 +201,11 @@ function updateOffset(index){
  * Callback for orientationchange event
  */
 function onOrientationChange(e){
-    postLayout(adjustePositions, true);
+    
+    postLayout(function(){
+      $.tabsCtrl.updateWidth();
+      adjustePositions();
+    }, true);
 }
 
 /**
