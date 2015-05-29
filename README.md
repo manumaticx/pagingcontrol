@@ -42,11 +42,11 @@ Here's the complete example from the above gif:
 	top: 0,
 	indicatorColor: "#09c",
 	tabs: true,
-  backgroundColor : "#cacaca",
-  font : {
-    fontSize : 20,
-    fontWeight : 'bold'
-  }
+	backgroundColor : "#cacaca",
+	font : {
+	    fontSize : 20,
+	    fontWeight : 'bold'
+	}
 }
 ```
 `index.js`
