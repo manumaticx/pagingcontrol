@@ -84,12 +84,15 @@ function init(args){
 }
 
 function updateWidth(){
+  
+  $.tabs.setWidth(Ti.UI.FILL);
+  
   if (opts.fitWidth){
     
     $.tabWidth = getTabWidth(opts.titles.length);
     
     tabs.forEach(function(tab){
-      tab.setWidth($.tabWidth);
+      tab.setWidth($.tabWidth - 1);
     });
   }
 }
