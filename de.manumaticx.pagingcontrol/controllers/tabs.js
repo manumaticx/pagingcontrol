@@ -60,6 +60,7 @@ function init(args){
 
     tabs[i].add(Ti.UI.createLabel({
       color: "#000",
+      font: args.tabs.font,
       text: args.titles[i]
     }));
 
