@@ -153,9 +153,7 @@ function init(){
 
     // add scroll listener to scrollable view
     $.scrollableView.addEventListener('scroll', onScroll);
-    if (args.activeColor) {
-      $.scrollableView.addEventListener('scrollend', onScrollEnd);
-    }
+    $.scrollableView.addEventListener('scrollend', onScrollEnd);
     Ti.Gesture.addEventListener('orientationchange', onOrientationChange);
 }
 
@@ -180,8 +178,8 @@ function onScroll(e){
 var previousPage = null;
 function onScrollEnd(e) {
   if (previousPage !== e.currentPage) {
-    previousPage = e.currentPage;
     $.tabsCtrl.selectColor(e.currentPage);
+    previousPage = e.currentPage;
   }
 }
 

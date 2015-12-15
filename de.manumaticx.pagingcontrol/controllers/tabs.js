@@ -60,7 +60,7 @@ function init(args){
     });
 
     var label = Ti.UI.createLabel({
-      color: (i === 0 && args.tabs.activeColor) ? args.tabs.activeColor : args.tabs.color,
+      color: (i === 0 && !!args.tabs.activeColor) ? args.tabs.activeColor : args.tabs.color,
       text: args.titles[i]
     });
     labels.push(label);
