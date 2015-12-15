@@ -24,6 +24,7 @@ _.defaults(args, {
     height: args.tabs ? 48 : 5,
     width: Ti.UI.FILL,
     findScrollableView: true,
+    color: "#000",
     font : {
       fontSize : 13,
       fontWeight : 'bold'
@@ -36,6 +37,8 @@ if (args.tabs) {
       dividerColor: "#ccc",
       width: args.tabWidth,
       backgroundColor : args.backgroundColor,
+      activeColor: args.activeColor,
+      color: args.color,
       font : args.font
     };
 }
@@ -150,6 +153,9 @@ function init(){
 
     // add scroll listener to scrollable view
     $.scrollableView.addEventListener('scroll', onScroll);
+    if (args.activeColor) {
+      $.scrollableView.addEventListener('scrollend', onScrollEnd);
+    }
     Ti.Gesture.addEventListener('orientationchange', onOrientationChange);
 }
 
@@ -166,6 +172,17 @@ function onScroll(e){
     $.indicator.setLeft(e.currentPageAsFloat * $.iWidth);
 
     args.tabs && updateOffset(e.currentPageAsFloat);
+}
+
+/**
+ * Callback for scrollend event
+ */
+var previousPage = null;
+function onScrollEnd(e) {
+  if (previousPage !== e.currentPage) {
+    previousPage = e.currentPage;
+    $.tabsCtrl.selectColor(e.currentPage);
+  }
 }
 
 /**

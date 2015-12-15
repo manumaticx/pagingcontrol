@@ -73,6 +73,8 @@ $.index.open();
 * `findScrollableView` - whether should widget is find scrollableView
 * `backgroundColor` - sets the tab's background color
 * `font` - font object for tab labels
+* `color` - color for the labels
+* `activeColor` - color for the active tab label
 
 #### Methods
 
