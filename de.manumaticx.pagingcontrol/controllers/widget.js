@@ -17,6 +17,7 @@ _.each(['tabs', 'findScrollableView'], function(key){
 
 // fill undefined args with defaults
 _.defaults(args, {
+    dividerColor: "#ccc",
     indicatorColor: "#000",
     indicatorHeight: 5,
     tabs: false,
@@ -34,7 +35,7 @@ _.defaults(args, {
 // additional adjustments for tabs
 if (args.tabs) {
     args.tabs = {
-      dividerColor: "#ccc",
+      dividerColor: args.dividerColor,
       width: args.tabWidth,
       backgroundColor : args.backgroundColor,
       activeColor: args.activeColor,
