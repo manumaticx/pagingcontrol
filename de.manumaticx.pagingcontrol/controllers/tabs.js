@@ -1,5 +1,6 @@
 var tabs = [];
 var opts = {};
+var labels = [];
 
 init(arguments[0] || {});
 
@@ -52,16 +53,18 @@ function init(args){
     height: Ti.UI.FILL
   });
 
-  for (i = 0; i < args.titles.length; i++){
+  for (var i = 0; i < args.titles.length; i++){
     tabs[i] = Ti.UI.createView({
       width: $.tabWidth,
       height: Ti.UI.FILL
     });
 
-    tabs[i].add(Ti.UI.createLabel({
-      color: "#000",
+    var label = Ti.UI.createLabel({
+      color: (i === 0 && !!args.tabs.activeColor) ? args.tabs.activeColor : args.tabs.color,
       text: args.titles[i]
-    }));
+    });
+    labels.push(label);
+    tabs[i].add(label);
 
     (function(index){
       tabs[i].addEventListener('click', function(){
@@ -83,6 +86,16 @@ function init(args){
   }
 }
 
+function selectColor(index) {
+  if (!opts.tabs.activeColor) {
+    return;
+  }
+
+  for (var j = 0; j < labels.length; j++) {
+    labels[j].color = (j === index) ? opts.tabs.activeColor : opts.tabs.color;
+  }
+}
+
 function updateWidth(){
   
   $.tabs.setWidth(Ti.UI.FILL);
@@ -99,7 +112,8 @@ function updateWidth(){
 
 function getWidth(){
   return $.tabWidth * opts.titles.length + opts.titles.length;
-};
+}
 
 exports.getWidth = getWidth;
 exports.updateWidth = updateWidth;
+exports.selectColor = selectColor;
