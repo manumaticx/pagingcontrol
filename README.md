@@ -1,6 +1,6 @@
 # PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.3-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
-Alloy Widget for a page indication on ScrollableViews.
+Alloy Widget for a page indication on ScrollableViews. (If you need a commonJs module for classic Titanium, please check [this port](https://github.com/deckameron/TiPagingControl) by Douglas Alves)
 
 ![](demo.gif)
 
