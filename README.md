@@ -1,4 +1,4 @@
-# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.3-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.4-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
 Alloy Widget for a page indication on ScrollableViews. (If you need a commonJs module for classic Titanium, please check [this port](https://github.com/deckameron/TiPagingControl) by Douglas Alves)
 
@@ -72,6 +72,7 @@ $.index.open();
 * `dividerColor` - Color of the divider between the tabs
 * `findScrollableView` - whether should widget is find scrollableView
 * `backgroundColor` - sets the tab's background color
+* `bottomColor` - sets the tab's bottom border color
 * `font` - font object for tab labels
 * `color` - color for the labels
 * `activeColor` - color for the active tab label
@@ -89,7 +90,7 @@ $.index.open();
 
     The MIT License (MIT)
 
-    Copyright (c) 2014 Manuel Lehner
+    Copyright (c) 2014 - 2016 Manuel Lehner
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
