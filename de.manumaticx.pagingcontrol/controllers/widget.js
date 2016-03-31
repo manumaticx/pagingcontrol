@@ -17,6 +17,7 @@ _.each(['tabs', 'findScrollableView'], function(key){
 
 // fill undefined args with defaults
 _.defaults(args, {
+    bottomColor: "#ededed",
     dividerColor: "#ccc",
     indicatorColor: "#000",
     indicatorHeight: 5,
@@ -126,7 +127,7 @@ function init(){
         width: Ti.UI.FILL,
         height: 2,
         bottom: 0,
-        backgroundColor: '#ededed'
+        backgroundColor: args.bottomColor
       }));
 
       // add tab select listener
@@ -164,7 +165,7 @@ function init(){
 function onScroll(e){
 
     // restrict this to $.scrollableView to support nesting scrollableViews
-	if(e.source !== $.scrollableView)
+    if(e.source !== $.scrollableView)
         return;
 
     // update the indicator position
