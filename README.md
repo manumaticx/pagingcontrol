@@ -1,4 +1,4 @@
-# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.4-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
+# PagingControl [![gittio](http://img.shields.io/badge/gittio-0.4.5-00B4CC.svg)](http://gitt.io/component/de.manumaticx.pagingcontrol)
 
 Alloy Widget for a page indication on ScrollableViews. (If you need a commonJs module for classic Titanium, please check [this port](https://github.com/deckameron/TiPagingControl) by Douglas Alves)
 
@@ -81,6 +81,7 @@ $.index.open();
 
 * `setScrollableView( )` - lets you set the scrollableView after creation
 * `cleanup( )` - call this to remove EventListeners
+* `refresh( )` - call this when views were added (or removed) to scrollableView
 
 #### Events
 

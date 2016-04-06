@@ -236,6 +236,15 @@ function adjustePositions() {
 }
 
 /**
+ * update the paging control if views were added / removed from scrollableView
+ */
+exports.refresh = function(){
+  $.pagingcontrol.removeAllChildren();
+  exports.cleanup();
+  init();
+};
+
+/**
  * if you need to set it in the controller
  * @param {Ti.UI.Scrollableview} scrollable view
  */
@@ -252,6 +261,9 @@ exports.setScrollableView = function(_sv){
  * removes orientationchange Listener
  */
 exports.cleanup = function(){
+    $.scrollableView.removeEventListener('scroll', onScroll);
+    $.scrollableView.removeEventListener('scrollend', onScrollEnd);
     Ti.Gesture.removeEventListener('orientationchange', onOrientationChange);
-    args.tabs && $.tabsCtrl && $.tabsCtrl.off();
+    args.tabs && $.tabsCtrl && $.tabsCtrl.off() && ($.tabsCtrl = null);
+    $.indicator = null;
 };
