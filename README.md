@@ -2,7 +2,8 @@
 
 Alloy Widget for a page indication on ScrollableViews. (If you need a commonJs module for classic Titanium, please check [this port](https://github.com/deckameron/TiPagingControl) by Douglas Alves)
 
-![](demo.gif)
+![](demo_android.gif)
+![](demo_ios.gif)
 
 ## Quick Start
 
